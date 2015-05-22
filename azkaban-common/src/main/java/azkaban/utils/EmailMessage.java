@@ -47,6 +47,7 @@ public class EmailMessage {
   private static String protocol = "smtp";
   private List<String> _toAddress = new ArrayList<String>();
   private String _mailHost;
+  private int _mailPort;
   private String _mailUser;
   private String _mailPassword;
   private String _subject;
@@ -64,12 +65,13 @@ public class EmailMessage {
   private ArrayList<BodyPart> _attachments = new ArrayList<BodyPart>();
 
   public EmailMessage() {
-    this("localhost", "", "");
+    this("localhost", 25, "", "");
   }
 
-  public EmailMessage(String host, String user, String password) {
+  public EmailMessage(String host, int port, String user, String password) {
     _mailUser = user;
     _mailHost = host;
+    _mailPort = port;
     _mailPassword = password;
   }
 
@@ -91,6 +93,11 @@ public class EmailMessage {
 
   public EmailMessage setMailHost(String host) {
     _mailHost = host;
+    return this;
+  }
+
+  public EmailMessage setMailPort(int port) {
+    _mailPort = port;
     return this;
   }
 
@@ -195,6 +202,7 @@ public class EmailMessage {
       props.put("mail." + protocol + ".auth", "false");
     }
     props.put("mail." + protocol + ".host", _mailHost);
+    props.put("mail." + protocol + ".port", _mailPort);
     props.put("mail." + protocol + ".timeout", _mailTimeout);
     props.put("mail." + protocol + ".connectiontimeout", _connectionTimeout);
     props.put("mail.smtp.starttls.enable", _tls);

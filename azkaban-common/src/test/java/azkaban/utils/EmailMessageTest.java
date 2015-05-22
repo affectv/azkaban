@@ -28,6 +28,7 @@ import org.junit.Test;
 public class EmailMessageTest {
 
   String host = "";
+  int port = 25;
   String sender = "";
   String user = "";
   String password = "";
@@ -38,7 +39,7 @@ public class EmailMessageTest {
 
   @Before
   public void setUp() throws Exception {
-    em = new EmailMessage(host, user, password);
+    em = new EmailMessage(host, port, user, password);
     em.setFromAddress(sender);
   }
 
